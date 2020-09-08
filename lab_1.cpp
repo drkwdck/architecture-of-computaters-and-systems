@@ -87,5 +87,25 @@ int main()
 	std::cout << "\nright shift: 0x9211 >> 0x0004\n";
 	print_hex_dec(x_signed >> y_signed);
 
+	// 5
+	std::cout << "\n5\n";
+	int16_t x_closed = 0xFF00;
+	int32_t x_expanded = x_closed;
+	std::cout << "0xFF00 in 16 bt\n";
+	print_hex_dec(x_closed);
+	std::cout << "0xFF00 in 32 bt\n";
+	print_hex_dec(x_expanded);
+
+	uint16_t x_closed_unsigned = 0xFF00;
+	uint32_t x_expanded_unsigned = 0xFF00;
+	std::cout << "unsigned 0xFF00 in 16 bt\n";
+	print_hex_dec(x_closed_unsigned);
+	std::cout << "unsigned 0xFF00 in 32 bt\n";
+	print_hex_dec(x_expanded_unsigned);
+
+	// 6
+	std::cout << "\n6\n";
+	std::cout << std::dec << 0x12345678 << std::endl;
+
 	return 0;
 }
