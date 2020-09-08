@@ -7,7 +7,7 @@
             "label": "echo",
             "type": "shell",
             "command": "gcc",
-            "args": ["-g", "lab_1.cpp", "-o", "lab_1"],
+            "args": ["-g", "lab_1.cpp" "lab_1_2.cpp", "lab_1_05.cpp", "-o", "lab_1", "lab_1_2", "lab_1_05"],
         }
     ]
 }

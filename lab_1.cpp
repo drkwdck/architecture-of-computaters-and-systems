@@ -25,6 +25,7 @@ void print_hex_dec(T x)
 
 int main()
 {
+	// 1
 	int16_t x = -2;
 	int16_t y = pow(2, 14) + 1;
 	
@@ -102,10 +103,6 @@ int main()
 	print_hex_dec(x_closed_unsigned);
 	std::cout << "unsigned 0xFF00 in 32 bt\n";
 	print_hex_dec(x_expanded_unsigned);
-
-	// 6
-	std::cout << "\n6\n";
-	std::cout << std::dec << 0x12345678 << std::endl;
 
 	return 0;
 }
