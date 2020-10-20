@@ -7,6 +7,9 @@ main:
     pushl To
     pushl From
     call GetRand
+    add $8, %esp
     pushl %eax
     pushl $str
     call printf
+    add $8, %esp
+    xor %eax, %eax

@@ -12,4 +12,7 @@ push %ecx
 push %eax
 push $str
 call printf
+add $3*4, %esp
+xor %eax, %eax
+xor %ecx, %ecx
 ret
