@@ -1,7 +1,7 @@
 .data
 a: .int 6
 b: .int 3
-str: .string "a = 3 b = 6 \nx= %d y= %d\n"
+str: .string "a = 6 b = 3 \nx= %d y= %d\n"
 .global main
 main:
 pushl a
