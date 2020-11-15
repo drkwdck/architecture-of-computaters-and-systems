@@ -153,3 +153,19 @@ $./a.out
 ````
 ### Результат выполнения:
 ![](Sreenshots/task_2-3.png)
+### Пояснения к FPU
+```
+"fldl %[x]\n" // в стеке x
+"fcos\n" // в стеке cos(x)
+
+"fldl %[c]\n" // в стеке 1.5, cos(x)
+"fldl %[x]\n" // в стеке x, 1.5, cos(x)
+"fldl %[x]\n" // в стеке x, x, 1.5, cos(x)
+
+"fadd\n" // в стеке 2x, 1.5, cos(x)
+"fsin\n" // в стеке sin(2x), 1.5, cos(x)
+"fadd\n" // в стеке sin(2x)+1.5, cos(x)
+"fdivr\n" // в стеке cos(x) / (sin(2x) + 1.5)
+
+"fstpl %[y]\n"
+```
