@@ -4,19 +4,19 @@
 int main()
 {
     double epsilon = 0.2;
-    double a = 1;
+    double a = 0;
     double S = 0;
     double i = 0;
 
-    while (abs(a) >= abs(epsilon))
+    while (true)
     {
         ++i;
-        a = (int)i % 2 == 0 ? 1 / i : -1 / i;
-    printf("%f", a);
+        a = pow(-1.0, i) / i;
+        if ((a < 0 ? a * (-1) : a) <= epsilon) { break; }
         S += a;
     }
-    
-    printf("%f", S);
+
+    printf("S = %f\n", S);
 
     return 0;
 }

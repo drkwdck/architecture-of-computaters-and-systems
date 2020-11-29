@@ -218,3 +218,106 @@ $./a.out
 ### Раньше мы были МП-30, вариант 1
 Точность будем проверять по следствию из теоремы Лейбница, которое гласит, что разница между частичной суммой и суммой ряда меньше модуля первого отброшенного члена.
 Код
+```
+.data
+    output:
+        .string "S = %f\n"
+    epsilon:
+        .double 0.2
+    i:
+        .double 1
+    S:
+        .double -1
+    a:
+        .double -1
+    one:
+        .double 1
+    sign:
+        .double -1
+.globl main
+    main:
+        start:
+        fldl one
+        fldl i
+        fadd
+        fstpl (i)
+
+        fldl sign
+        fchs
+        fstpl (sign)
+
+        fldl i
+        fldl sign
+        fdiv
+        fstpl (a)
+
+        fldl a
+        fabs
+        fldl epsilon
+        fabs
+        fsubr
+        ftst
+        fstsw %ax
+        sahf
+        jbe end
+
+        fldl S
+        fldl a
+        fadd
+        fstpl (S)
+        jmp start
+
+        end:
+        pushl (S+4)
+        pushl (S)
+        push $output
+        call printf
+        add $12, %esp
+        ret
+```
+
+### Для запуска
+Из директории с 6 лабой:
+````console
+$gcc -m32 task_4.s
+$./a.out 
+````
+Результат\
+![](Sreenshots/task_4_2.png)
+&nbsp;
+
+Напишем код, на C++ для проверки:
+````cpp
+#include "stdio.h"
+#include <cmath>
+
+int main()
+{
+    double epsilon = 0.2;
+    double a = 0;
+    double S = 0;
+    double i = 0;
+
+    while (true)
+    {
+        ++i;
+        a = pow(-1.0, i) / i;
+        if ((a < 0 ? a * (-1) : a) <= epsilon) { break; }
+        S += a;
+    }
+
+    printf("S = %f\n", S);
+
+    return 0;
+}
+````
+
+### Для запуска
+Из директории с 6 лабой:
+````console
+$gcc -m32 task_4.cpp -lm 
+$./a.out 
+````
+Результат\
+![](Sreenshots/task_4_3.png)
+&nbsp;
