@@ -206,10 +206,11 @@ int main()
     "cmpl %[i], %%ebx\n\t"
     "jz end\n"
     "movl %[ai],%%eax\n"
-    "addl %[x],%%eax\n"
-    "movl %%eax, %[ai]\n"
     "movl %[array], %%ecx\n\t"
     "movl %%eax,(%%ecx, %%ebx, 4)\n\t"
+
+    "addl %[x],%%eax\n"
+    "movl %%eax, %[ai]\n"
     "incl %%ebx\n\t"
     "jmp begin\n"
     "end: \n"
