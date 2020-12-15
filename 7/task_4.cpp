@@ -20,7 +20,7 @@ for (int i=0;i<N;i++)
 { 
 Array[i].key=rand()%(N/2); 
 Array[i].value=(rand()%1000)/(double)100; 
-cout << "{ "<< Array[i].key << " = " << Array[i].value << " } \n"; 
+cout << Array[i].key << "/" << Array[i].value << " "; 
 } 
 cout << "\nSizeof(Array[i]):" << sizeof(Array[0]) << "\n"; 
 cout << "\nSizeof(Array[i].key):" << sizeof(Array[0].key) << endl; 
@@ -50,10 +50,13 @@ asm (
 "movl %[Array], %%ecx\n\t" 
 "leal (%%ecx, %%eax, 8), %%ecx\n\t" 
 "leal 8(%%ecx, %%eax, 8), %%ecx\n\t" 
+//"movl (%%ecx),%%ecx\n\t" 
+//"movl %%ecx, %[Min]\n\t" 
+//"fldl %[Min]\n\t" 
 "fldl (%%ecx)\n\t" 
 "incl %%eax\n\t" 
 //-----------------------— 
-"StartSum:\n\t" 
+"StartSearchMin:\n\t" 
 "cmpl %[N], %%eax\n\t" 
 "je ExitHM\n\t" 
 "movl %[Array], %%ecx\n\t" 
@@ -65,10 +68,12 @@ asm (
 "movl %[Array], %%ecx\n\t" 
 "leal (%%ecx, %%eax, 8), %%ecx\n\t" 
 "leal 8(%%ecx, %%eax, 8), %%ecx\n\t" 
+//"movl (%%ecx),%%ecx\n\t" 
 "fldl (%%ecx)\n\t" 
-"push %%ax\n\t"
+"push %%ax\n\t" 
 "fcom\n\t" 
 "fnstsw\n\t" 
+//"fstpl %[Min]\n\t" 
 "sahf\n\t" 
 "pop %%ax\n\t" 
 "jc CHANGEMIN\n\t" 
@@ -79,7 +84,7 @@ asm (
 "fstpl %[Min]\n\t" 
 "CONTINUESEARCH:\n\t" 
 "incl %%eax\n\t" 
-"jmp StartSum\n\t" 
+"jmp StartSearchMin\n\t" 
 "ExitHM:\n\t" 
 "fstpl %[Min]\n\t" 
 "ExitNM:\n\t" 

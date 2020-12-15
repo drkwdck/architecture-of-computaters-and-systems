@@ -138,6 +138,13 @@ int main()
 }
 ````
 
+### Для запуска
+Из директории с 7 лабой:
+````console
+$ g++ task_3.cpp
+$ ./a.out 
+````
+
 Результат\
 ![](Sreenshots/task_3_2.png)
 
@@ -155,3 +162,80 @@ int main()
   + Ключ лежит по адресу элемента (с него начинается объект в памяти)
   + Значение лежит по адресу элемента плюс смещение на размер ключа
   
+# Задание 5
+![](Sreenshots/task_5_1.png)
+
+&nbsp;
+
+### Задание 3 из 6 лабораторной работы
+![](Sreenshots/task_5_2.png)
+
+&nbsp;
+
+Код
+```cpp
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+
+int main()
+{
+    int i = 10; 
+    int ai = 0;
+    int x = 1;
+    std:: cout << "Enter N\n";
+    std::cin >> i;
+    std::cout << "Enter x\n";
+    std::cin >> x;
+    srand(22);
+    int N = i;
+    int * array = new int [N];
+
+    for (int i = 0; i < N; ++i)
+    {
+        array[i] = 0;
+    }
+
+    std::cout << std::endl;
+
+    asm(
+    "movl $0, %%ebx\n\t"
+    "begin: \n"
+    "cmpl %[i], %%ebx\n\t"
+    "jz end\n"
+    "movl %[ai],%%eax\n"
+    "addl %[x],%%eax\n"
+    "movl %%eax, %[ai]\n"
+    "movl %[array], %%ecx\n\t"
+    "movl %%eax,(%%ecx, %%ebx, 4)\n\t"
+    "incl %%ebx\n\t"
+    "jmp begin\n"
+    "end: \n"
+    :[ai]"+r"(ai),[x]"+r"(x),[i]"+r"(i)
+    :[array]"m"(array)
+    :"cc","%eax","%ecx","%ebx"
+    );
+    
+    for (int i = 0; i < N; ++i)
+    {
+        std::cout << " " << array[i];
+    }
+
+    std::cout << "\n";
+
+    return 0;
+}
+```
+
+### Для запуска
+Из директории с 7 лабой:
+````console
+$ g++ -m32 task_5.cpp 
+$ ./a.out 
+````
+
+Результат\
+![](Sreenshots/task_5_3.png)
+
